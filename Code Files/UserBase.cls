@@ -13,9 +13,6 @@ Option Explicit
 'Objective: Return the Identifier and Information userBased on a
 '           given array. If the word(s) exists in the Identifier,
 '           an array is returned.
-'Version: v1.0
-'Creation Date: 18/04/2019
-'Modification Date: 25/04/2019
 'Author: Daniel Correa de Castro Freitas
 '=================================================================
 

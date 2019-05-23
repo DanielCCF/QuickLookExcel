@@ -7,10 +7,19 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
+Option Explicit
+
+'==================================================================
+'Objective: Use the events to trigger the methods in the classes,
+'           as well changing the progress icon and protecting or
+'           unprotecting this sheet.
+'Author: Daniel Correa de Castro Freitas
+'==================================================================
+
 Private Sub Worksheet_Change(ByVal Target As Range)
 
 DoEvents
-Application.EnableEvents = False
+Application.enableEvents = False
 
 Dim KW As KeyWords
 Dim UB As UserBase
@@ -35,7 +44,7 @@ If KW.checkNewInputExistance = True Then
     protectTable
 End If
 
-Application.EnableEvents = True
+Application.enableEvents = True
 
 End Sub
 

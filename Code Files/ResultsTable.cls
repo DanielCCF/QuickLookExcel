@@ -11,9 +11,6 @@ Option Explicit
 
 '==================================================================
 'Objective: Display the results for the user in a table.
-'Version: v1.0
-'Creation Date: 24/04/2019
-'Modification Date: 25/04/2019
 'Author: Daniel Correa de Castro Freitas
 '==================================================================
 

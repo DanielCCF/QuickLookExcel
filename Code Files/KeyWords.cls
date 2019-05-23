@@ -11,9 +11,6 @@ Option Explicit
 
 '==================================================================
 'Objective: Compare the current input values with the previous one.
-'Version: v1.0
-'Creation Date: 16/04/2019
-'Modification Date: 25/04/2019
 'Author: Daniel Correa de Castro Freitas
 '==================================================================
 
