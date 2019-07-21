@@ -1,0 +1,24 @@
+QuickLookExcel
+https://github.com/DanielCCF/QuickLookExcel
+
+By Daniel Correa de Castro Freitas
+
+
+Objective
+
+This project was created to bring a easy way to retrieve information, based on tags provided by you. In this way, you can quickly find important websites, books recommendations, important phrases in your studies, etc, all of this in one Excel tool.
+
+
+License
+
+This is a open-source project, so you are free to use, copy and modify the Quick Look Excel based on CC BY-SA 4.0. See the following link for details: https://creativecommons.org/licenses/by-sa/4.0/
+
+
+How to use
+
+All description about how to use this projects is located on the first Worksheet of the Excel File.
+
+
+Contributing to this project
+
+If you have suggestions for improving the QuickLookExcel, please open an issue or pull request on GitHub.
