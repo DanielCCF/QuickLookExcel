@@ -21,10 +21,8 @@ Private placePreviousExecution As Range
 
 Private Sub Class_Initialize()
 
-With ThisWorkbook
-    Set placeCurrentInput = .Sheets("Programa").Range("inputTable[Palavras para pesquisar]")
-    Set placePreviousExecution = .Sheets("Support").Range("supportTable[Palavras para pesquisar]")
-End With
+Set placeCurrentInput = Program.Range("inputTable[" & Program.Range("inputTable[#Headers]").Cells(1, 2) & "]")
+Set placePreviousExecution = Support.Range("supportTable[" & Support.Range("supportTable[#Headers]").Cells(1, 2) & "]")
 
 currentInput = returnValuesFromPlace(placeCurrentInput)
 previousExecution = returnValuesFromPlace(placePreviousExecution)
@@ -86,6 +84,7 @@ Dim i As Integer
 
 For Each place In placePreviousExecution
     place.Value = currentInput(i)
+    i = i + 1
 Next
 
 End Sub

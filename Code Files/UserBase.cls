@@ -22,7 +22,10 @@ Private informationColumn() As String
 
 Private Sub Class_Initialize()
 
-Set placeIdentifierColumn = ThisWorkbook.Sheets("Base").Range("userBase[Identificador]")
+With Database
+    Set placeIdentifierColumn = .Range("userBase[" & .Range("userBase[#Headers]").Cells(1, 1) & "]")
+End With
+
 returnSeparateIdentifierAndInformation
 
 End Sub

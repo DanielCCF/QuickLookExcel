@@ -18,7 +18,7 @@ Private outputTable As Range
 
 Private Sub Class_Initialize()
 
-With ThisWorkbook.Sheets("Programa")
+With Program
     Set outputTable = .Range("outputTable")
 End With
 
@@ -26,13 +26,13 @@ End Sub
 
 Private Sub Class_Terminate()
 
-With ThisWorkbook.Sheets("Programa")
+With Program
     Set outputTable = Nothing
 End With
 
 End Sub
 
-Sub populateTableWithSearchResult(ByRef results As Variant)
+Sub ReturnResultsTable(ByRef results As Variant)
 
 Dim i As Long
 Dim newRowsNumber As Long
@@ -74,7 +74,7 @@ Private Sub resizeTable(ByVal newRowsNumber As Long)
 Dim outputTableAsObject As Object
 Dim outputHeaders As Range
 
-With ThisWorkbook.Sheets("Programa")
+With Program
     Set outputTableAsObject = .ListObjects("outputTable")
     Set outputHeaders = .Range("outputTable[#Headers]")
 End With
@@ -97,7 +97,7 @@ End Sub
 
 Private Sub unlockTable()
 
-ThisWorkbook.Sheets("Programa").Range("outputTable").Locked = False
+Program.Range("outputTable").Locked = False
 
 End Sub
 
@@ -108,9 +108,9 @@ Dim outputInformationCells As Range
 Dim outputIdentifier() As String
 Dim outputInformation() As String
 
-With ThisWorkbook.Sheets("Programa")
-    Set outputIdentifierCells = .Range("outputTable[Identificador]")
-    Set outputInformationCells = .Range("outputTable[Informação]")
+With Program.Range("outputTable[#Headers]")
+    Set outputIdentifierCells = Program.Range("outputTable[" & .Cells(1, 1) & "]")
+    Set outputInformationCells = Program.Range("outputTable[" & .Cells(1, 2) & "]")
 End With
 
 ReDim Preserve outputIdentifier(newRowsNumber)

@@ -1,4 +1,4 @@
-Attribute VB_Name = "MaintainTools"
+Attribute VB_Name = "DevTools"
 '==================================================================
 'Objective: Module dedicate to hold the maintain tools used during
 '           the development
@@ -25,3 +25,8 @@ End With
 
 End Sub
 
+Sub T()
+
+Application.enableEvents = True
+
+End Sub
