@@ -22,33 +22,33 @@ Private informationColumn() As String
 
 Private Sub Class_Initialize()
 
-With Database
-    Set placeIdentifierColumn = .Range("userBase[" & .Range("userBase[#Headers]").Cells(1, 1) & "]")
-End With
-
-returnSeparateIdentifierAndInformation
+    With Database
+        Set placeIdentifierColumn = .Range("userBase[" & .Range("userBase[#Headers]").Cells(1, 1) & "]")
+    End With
+    
+    returnSeparateIdentifierAndInformation
 
 End Sub
 
 Private Sub Class_Terminate()
  
-Set placeIdentifierColumn = Nothing
+    Set placeIdentifierColumn = Nothing
 
 End Sub
 
 Private Sub returnSeparateIdentifierAndInformation()
 
-Dim cell As Range
-Dim i As Long
-
-For Each cell In placeIdentifierColumn
-    ReDim Preserve descriptionColumn(i)
-    ReDim Preserve informationColumn(i)
+    Dim cell As Range
+    Dim i As Long
     
-   descriptionColumn(i) = cell.Value
-   informationColumn(i) = cell.Offset(0, 1).Value
-   i = i + 1
-Next
+    For Each cell In placeIdentifierColumn
+        ReDim Preserve descriptionColumn(i)
+        ReDim Preserve informationColumn(i)
+        
+       descriptionColumn(i) = cell.Value
+       informationColumn(i) = cell.Offset(0, 1).Value
+       i = i + 1
+    Next
 
 End Sub
 Function filterIdentifierAndInformation(ByRef targetWords As Variant)
@@ -61,79 +61,79 @@ Function filterIdentifierAndInformation(ByRef targetWords As Variant)
 '           The Separation was need because of the Filter() use,
 '           which only works in 1 dimension arrays.
 
-Dim filteredIdentifier() As String
-Dim filteredInformation() As String
-Dim filteredIdentifierAndInformation() As String
-Dim i As Long
-
-If checkAreNoWords(targetWords) = True Then
-    ReDim filteredIdentifierAndInformation(0, 0)
-    filterIdentifierAndInformation = filteredIdentifierAndInformation
-Else
-    filteredIdentifier = returnMatchedIdentifier(targetWords)
-    If checkEmptyReturn(filteredIdentifier) = True Then
-        filteredInformation = filterInformation(filteredIdentifier)
-        
-        ReDim Preserve filteredIdentifierAndInformation(UBound(filteredIdentifier), 1)
-        For i = 0 To UBound(filteredIdentifier)
-            filteredIdentifierAndInformation(i, 0) = filteredIdentifier(i)
-            filteredIdentifierAndInformation(i, 1) = filteredInformation(i)
-        Next
-        
-        filterIdentifierAndInformation = filteredIdentifierAndInformation
-    Else
+    Dim filteredIdentifier() As String
+    Dim filteredInformation() As String
+    Dim filteredIdentifierAndInformation() As String
+    Dim i As Long
+    
+    If checkAreNoWords(targetWords) = True Then
         ReDim filteredIdentifierAndInformation(0, 0)
         filterIdentifierAndInformation = filteredIdentifierAndInformation
+    Else
+        filteredIdentifier = returnMatchedIdentifier(targetWords)
+        If checkEmptyReturn(filteredIdentifier) = True Then
+            filteredInformation = filterInformation(filteredIdentifier)
+            
+            ReDim Preserve filteredIdentifierAndInformation(UBound(filteredIdentifier), 1)
+            For i = 0 To UBound(filteredIdentifier)
+                filteredIdentifierAndInformation(i, 0) = filteredIdentifier(i)
+                filteredIdentifierAndInformation(i, 1) = filteredInformation(i)
+            Next
+            
+            filterIdentifierAndInformation = filteredIdentifierAndInformation
+        Else
+            ReDim filteredIdentifierAndInformation(0, 0)
+            filterIdentifierAndInformation = filteredIdentifierAndInformation
+        End If
     End If
-End If
 
 End Function
 
 Private Function checkAreNoWords(ByRef targetWords As Variant) As Boolean
-
-If Len(Join(targetWords)) = 0 Then
-    checkAreNoWords = True
-End If
+    
+    If Len(Join(targetWords)) = 0 Then
+        checkAreNoWords = True
+    End If
 
 End Function
 
 Private Function returnMatchedIdentifier(ByRef targetWords As Variant)
 
-Dim descriptionCopy() As String
-Dim i As Long
-
-'To avoid the unacessary property manipulation
-descriptionCopy = descriptionColumn
-For i = 0 To UBound(targetWords)
-    descriptionCopy = Filter(descriptionCopy, targetWords(i), True, vbTextCompare)
-Next
-
-returnMatchedIdentifier = descriptionCopy
+    Dim descriptionCopy() As String
+    Dim i As Long
+    
+    'To avoid the unacessary property manipulation
+    descriptionCopy = descriptionColumn
+    For i = 0 To UBound(targetWords)
+        descriptionCopy = Filter(descriptionCopy, targetWords(i), True, vbTextCompare)
+    Next
+    
+    returnMatchedIdentifier = descriptionCopy
 
 End Function
 
 Private Function checkEmptyReturn(ByRef filteredIdentifier() As String) As Boolean
 
-If UBound(filteredIdentifier) > -1 Then
-    checkEmptyReturn = True
-End If
+    If UBound(filteredIdentifier) > -1 Then
+        checkEmptyReturn = True
+    End If
 
 End Function
 
 Private Function filterInformation(ByRef filteredIdentifier() As String)
 
-Dim currentIdentifierRow As Long
-Dim filteredInformation() As String
-
-ReDim Preserve filteredInformation(UBound(filteredIdentifier))
-
-Dim i As Long
-For i = 0 To UBound(filteredIdentifier)
-    'This is a common excel formula combination between Index and Match
-    currentIdentifierRow = WorksheetFunction.Match(filteredIdentifier(i), descriptionColumn, 0)
-    filteredInformation(i) = WorksheetFunction.Index(informationColumn, currentIdentifierRow)
-Next
-
-filterInformation = filteredInformation
+    Dim currentIdentifierRow As Long
+    Dim filteredInformation() As String
+    
+    ReDim Preserve filteredInformation(UBound(filteredIdentifier))
+    
+    Dim i As Long
+    For i = 0 To UBound(filteredIdentifier)
+        'This is a common excel formula combination between Index and Match
+        currentIdentifierRow = WorksheetFunction.Match(filteredIdentifier(i), descriptionColumn, 0)
+        filteredInformation(i) = WorksheetFunction.Index(informationColumn, currentIdentifierRow)
+    Next
+    
+    filterInformation = filteredInformation
 
 End Function

@@ -17,19 +17,19 @@ Option Explicit
 
 Private Sub Workbook_Deactivate()
 
-With Application
-    .DisplayFormulaBar = True
-    .ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",true)"
-End With
+    With Application
+        .DisplayFormulaBar = True
+        .ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",true)"
+    End With
 
 End Sub
 
 Private Sub Workbook_Activate()
 
-With Application
-    Application.DisplayFormulaBar = False
-    Application.ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",False)"
-End With
+    With Application
+        Application.DisplayFormulaBar = False
+        Application.ExecuteExcel4Macro "Show.ToolBar(""Ribbon"",False)"
+    End With
 
 End Sub
 
