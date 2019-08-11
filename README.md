@@ -9,7 +9,7 @@ This project was created to bring a easy way to retrieve information, based on t
 
 ## License
 
-This is a open-source project, so you are free to use, copy and modify the Quick Look Excel based on [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+This is a open-source project, so you are free to use, copy and modify the Quick Look Excel. See the LICENSE file for greater details.
 
 ## How to use
 
