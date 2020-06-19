@@ -14,54 +14,38 @@ Option Explicit
 'Author: Daniel Correa de Castro Freitas
 '==================================================================
 
-Private currentInput() As String
-Private placeCurrentInput As Range
-Private previousExecution() As String
-Private placePreviousExecution As Range
+Private CurrentInput() As String
+Private CellsCurrentInput As Range
+Private PreviousExecution() As String
+Private CellsPreviousExecution As Range
+
 
 Private Sub Class_Initialize()
-
-    Set placeCurrentInput = Program.Range("inputTable[" & Program.Range("inputTable[#Headers]").Cells(1, 2) & "]")
-    Set placePreviousExecution = Support.Range("supportTable[" & Support.Range("supportTable[#Headers]").Cells(1, 2) & "]")
     
-    currentInput = returnValuesFromPlace(placeCurrentInput)
-    previousExecution = returnValuesFromPlace(placePreviousExecution)
+    Dim currentHeaderInputTableSecondColumn As String
+    Dim currentHeaderSupportTableSecondColumn As String
+    
+    currentHeaderInputTableSecondColumn = Program.Range("inputTable[#Headers]").Cells(1, 2)
+    currentHeaderSupportTableSecondColumn = Support.Range("supportTable[#Headers]").Cells(1, 2)
+    
+    Set CellsCurrentInput = Program.Range("inputTable[" & currentHeaderInputTableSecondColumn & "]")
+    Set CellsPreviousExecution = Support.Range("supportTable[" & currentHeaderSupportTableSecondColumn & "]")
+    
+    CurrentInput = ReturnValuesFromCells(CellsCurrentInput)
+    PreviousExecution = ReturnValuesFromCells(CellsPreviousExecution)
 
 End Sub
+
 
 Private Sub Class_Terminate()
 
-    Set placeCurrentInput = Nothing
-    Set placePreviousExecution = Nothing
+    Set CellsCurrentInput = Nothing
+    Set CellsPreviousExecution = Nothing
 
 End Sub
 
-Function checkNewInputExistance() As Boolean
 
-    If checkIfNewInputIsDifferentFromPrevious = True Then
-        checkNewInputExistance = True
-        'Keep track of previous execution is a MUST
-        registerCurrentExecutionAsPrevious
-    Else
-        checkNewInputExistance = False
-    End If
-
-End Function
-
-Private Function checkIfNewInputIsDifferentFromPrevious() As Boolean
-
-    Dim i As Byte
-    
-    For i = 0 To UBound(currentInput)
-        If currentInput(i) <> previousExecution(i) Then
-            checkIfNewInputIsDifferentFromPrevious = True
-            Exit For
-        End If
-    Next
-
-End Function
-
-Private Function returnValuesFromPlace(ByVal targetRange As Range)
+Private Function ReturnValuesFromCells(ByVal targetRange As Range)
 
     Dim cellValue As Range
     Dim i As Long
@@ -73,35 +57,66 @@ Private Function returnValuesFromPlace(ByVal targetRange As Range)
         i = i + 1
     Next
     
-    returnValuesFromPlace = valuesFromRange
+    ReturnValuesFromCells = valuesFromRange
 
 End Function
 
-Private Sub registerCurrentExecutionAsPrevious()
+
+Private Sub RegisterCurrentExecutionAsPrevious()
     
     Dim place As Range
     Dim i As Integer
     
-    For Each place In placePreviousExecution
-        place.Value = currentInput(i)
+    For Each place In CellsPreviousExecution
+        place.Value = CurrentInput(i)
         i = i + 1
     Next
 
 End Sub
 
-Function returnFilterWords() As Variant
+
+Function CheckNewInputExistance() As Boolean
+
+    If CheckIfNewInputIsDifferentFromPrevious = True Then
+        CheckNewInputExistance = True
+        'Keep track of previous execution is a MUST, in this
+        'way it'll only execute if a change in cell values
+        'is made.
+        RegisterCurrentExecutionAsPrevious
+    Else
+        CheckNewInputExistance = False
+    End If
+
+End Function
+
+
+Private Function CheckIfNewInputIsDifferentFromPrevious() As Boolean
+
+    Dim i As Byte
+    
+    For i = 0 To UBound(CurrentInput)
+        If CurrentInput(i) <> PreviousExecution(i) Then
+            CheckIfNewInputIsDifferentFromPrevious = True
+            Exit For
+        End If
+    Next
+
+End Function
+
+
+Function ReturnFilterWords() As Variant
 
     Dim i As Integer, j As Integer
     Dim nonBlankValues() As String
     
-    For i = 0 To UBound(currentInput)
-        If currentInput(i) <> "" Then
+    For i = 0 To UBound(CurrentInput)
+        If CurrentInput(i) <> "" Then
             ReDim Preserve nonBlankValues(j)
-            nonBlankValues(j) = currentInput(i)
+            nonBlankValues(j) = CurrentInput(i)
             j = j + 1
         End If
     Next
     
-    returnFilterWords = nonBlankValues
+    ReturnFilterWords = nonBlankValues
 
 End Function

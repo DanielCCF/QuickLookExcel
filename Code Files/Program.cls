@@ -19,7 +19,7 @@ Option Explicit
 Private Sub Worksheet_Change(ByVal Target As Range)
 
     DoEvents
-    Application.enableEvents = False
+    Application.EnableEvents = False
     
     Dim kw As KeyWords
     Dim ub As UserBase
@@ -29,22 +29,22 @@ Private Sub Worksheet_Change(ByVal Target As Range)
     
     Set kw = New KeyWords
     
-    If kw.checkNewInputExistance = True Then
+    If kw.CheckNewInputExistance = True Then
         unprotectTable
         showIconAsBusy
         
         Set ub = New UserBase
         Set rt = New ResultsTable
         
-        filterWords = kw.returnFilterWords
-        filteredIdentifierAndInformation = ub.filterIdentifierAndInformation(filterWords)
+        filterWords = kw.ReturnFilterWords
+        filteredIdentifierAndInformation = ub.FilterIdentifierAndInformation(filterWords)
         rt.ReturnResultsTable (filteredIdentifierAndInformation)
         
         showIconAsAvailable
         protectTable
     End If
     
-    Application.enableEvents = True
+    Application.EnableEvents = True
 
 End Sub
 

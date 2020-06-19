@@ -12,14 +12,17 @@ Option Explicit
 Sub PTLanguage()
 
     ChangeLanguage "PT"
+    Tutorial.Activate
 
 End Sub
 
 Sub ENLanguage()
 
     ChangeLanguage "EN"
-
+    Tutorial.Activate
+    
 End Sub
+
 Private Sub ChangeLanguage(ByVal LanguageIndicator As String)
     
     'Objective: Change the Worbkook language using a support sheet.
@@ -61,7 +64,7 @@ Private Sub PrepareWorkbook()
     '           execution from the user.
     
     Application.ScreenUpdating = False
-    Application.enableEvents = False
+    Application.EnableEvents = False
     
     Program.Unprotect
     Tutorial.Unprotect
@@ -92,7 +95,7 @@ Private Sub ReturnOriginalState()
     Program.Protect
     
     Application.ScreenUpdating = True
-    Application.enableEvents = True
+    Application.EnableEvents = True
     
 End Sub
 

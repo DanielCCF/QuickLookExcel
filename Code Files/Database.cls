@@ -1,0 +1,26 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "Database"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+    ForceUserTableResizing
+
+End Sub
+
+Private Sub ForceUserTableResizing()
+    
+    With Database
+        .Unprotect
+        .ListObjects("userBase").Resize .Range("userBase").CurrentRegion
+        .Protect AllowDeletingRows:=True, AllowFiltering:=True
+    End With
+    
+End Sub

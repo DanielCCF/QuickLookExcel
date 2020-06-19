@@ -14,23 +14,26 @@ Option Explicit
 'Author: Daniel Correa de Castro Freitas
 '==================================================================
 
-Private outputTable As Range
+Private OutputTable As Range
+
 
 Private Sub Class_Initialize()
 
     With Program
-        Set outputTable = .Range("outputTable")
+        Set OutputTable = .Range("outputTable")
     End With
 
 End Sub
+
 
 Private Sub Class_Terminate()
     
     With Program
-        Set outputTable = Nothing
+        Set OutputTable = Nothing
     End With
 
 End Sub
+
 
 Sub ReturnResultsTable(ByRef results As Variant)
 
@@ -48,19 +51,21 @@ Sub ReturnResultsTable(ByRef results As Variant)
 
 End Sub
 
+
 Private Sub prepareTableForNewData(ByVal newRowsNumber As Long)
 
-    clearPreviousExecution
+    ClearPreviousExecution
     
-    resizeTable newRowsNumber
+    ResizeTable newRowsNumber
     
-    allignCellsContent
+    AllignCellsContent
 
 End Sub
 
-Private Sub clearPreviousExecution()
 
-    With outputTable
+Private Sub ClearPreviousExecution()
+
+    With OutputTable
         .Clear
         If .Rows.Count > 1 Then
             .Delete
@@ -69,7 +74,8 @@ Private Sub clearPreviousExecution()
 
 End Sub
 
-Private Sub resizeTable(ByVal newRowsNumber As Long)
+
+Private Sub ResizeTable(ByVal newRowsNumber As Long)
 
     Dim outputTableAsObject As Object
     Dim outputHeaders As Range
@@ -86,20 +92,23 @@ Private Sub resizeTable(ByVal newRowsNumber As Long)
 
 End Sub
 
-Private Sub allignCellsContent()
 
-    With outputTable
+Private Sub AllignCellsContent()
+
+    With OutputTable
         .VerticalAlignment = xlBottom
         .HorizontalAlignment = xlLeft
     End With
 
 End Sub
 
+
 Private Sub unlockTable()
 
     Program.Range("outputTable").Locked = False
 
 End Sub
+
 
 Private Sub fillEachColumn(ByRef results As Variant, ByVal newRowsNumber As Integer)
 
@@ -122,6 +131,7 @@ Private Sub fillEachColumn(ByRef results As Variant, ByVal newRowsNumber As Inte
     outputInformationCells = Application.Transpose(outputInformation)
 
 End Sub
+
 
 Private Sub splitResultsIntoTwoArrays(ByRef results As Variant, outputIdentifier As Variant, ByRef outputInformation As Variant)
 
